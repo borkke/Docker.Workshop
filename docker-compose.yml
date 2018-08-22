@@ -1,0 +1,41 @@
+version: "3.4"
+
+services: 
+  usersapi:
+    image: borkke/usersapi
+    build: 
+      context: Users/
+      dockerfile: Dockerfile
+    ports: 
+      - "8081:80"
+    environment:
+      - ENV ASPNETCORE_URLS https://*:80
+  notesapi:
+    image: borkke/notesapi
+    build: 
+      context: Notes/
+      dockerfile: Dockerfile
+    ports: 
+      - "8082:80"
+  ui:
+    image: borkke/notesui
+    build: 
+      context: UI/
+      dockerfile: Dockerfile
+    ports: 
+      - "8083:80"
+  
+  database:
+    image: microsoft/mssql-server-linux:2017-latest
+    environment:
+      - SA_PASSWORD=Pass@word
+      - ACCEPT_EULA=Y
+    ports:
+      - "1433:1433"
+    volumes:
+      - ./data:/var/opt/mssql
+  mailserver:
+    image: mailhog/mailhog
+    ports:
+      - "8025:8025"
+      - "1025:1025"

@@ -1,0 +1,21 @@
+<div>
+    <table class='table'>
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Text</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor='let note of notes'>
+            <td>
+              <a [routerLink]="['/notes', note.id]">
+                {{ note.id }}
+              </a>
+            </td>
+            <td>{{ note.text }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+</div>
